@@ -3,6 +3,9 @@ name = "ltu"
 version = "0.1.0"
 description = ""
 authors = ["alex <alex@pdp7.net>"]
+include = [
+	{ path = "third-party/silvio-docker-languagetool", format = ["sdist", "wheel"] }
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"

@@ -1,6 +1,7 @@
 import argparse
 import logging
 import pathlib
+import pkg_resources
 import shutil
 import subprocess
 import urllib.request
@@ -53,13 +54,15 @@ def download_ngrams(language):
 
 
 def build_container():
+    container_dir = pathlib.Path(pkg_resources.resource_filename(__name__, "foo")).parent.parent / "third-party" / "silvio-docker-languagetool"
+
     print("if prompted, select the docker.io image with your cursors and press enter")
-    subprocess.run(["podman", "build", "--build-arg", "VERSION=5.9", "-t", _CONTAINER_IMAGE, "third-party/silvio-docker-languagetool/"])
+    subprocess.run(["podman", "build", "--build-arg", "VERSION=5.9", "-t", _CONTAINER_IMAGE, container_dir], check=True)
 
 
 def run_container_server():
     ngrams_path = pathlib.Path(ltu.dirs.user_cache_dir).absolute()
-    subprocess.run(["podman", "run", "--rm", "-it", "-p", "8010:8010", "-v", f"{ngrams_path}:/ngrams", _CONTAINER_IMAGE])
+    subprocess.run(["podman", "run", "--rm", "-it", "-p", "8010:8010", "-v", f"{ngrams_path}:/ngrams", _CONTAINER_IMAGE], check=True)
 
 
 def run_server_main():
