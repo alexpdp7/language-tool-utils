@@ -62,7 +62,7 @@ def build_container():
 
 def run_container_server():
     ngrams_path = pathlib.Path(ltu.dirs.user_cache_dir).absolute()
-    subprocess.run(["podman", "run", "--rm", "-it", "-p", "8010:8010", "-v", f"{ngrams_path}:/ngrams", _CONTAINER_IMAGE], check=True)
+    subprocess.run(["podman", "run", "--rm", "-it", "-p", "8010:8010", "-v", f"{ngrams_path}:/ngrams", "--security-opt", "label=disable", _CONTAINER_IMAGE], check=True)
 
 
 def run_server_main():
