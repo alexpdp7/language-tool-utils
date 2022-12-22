@@ -1,0 +1,3 @@
+[submodule "third-party/silvio-docker-languagetool"]
+	path = third-party/silvio-docker-languagetool
+	url = https://github.com/silvio/docker-languagetool.git
