@@ -16,6 +16,7 @@ ipython = "*"
 
 [tool.poetry.scripts]
 ltu-run-server = 'ltu.server:run_server_main'
+ltu-check-asciidoctor = 'ltu.cli:check_asciidoctor_cli'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
