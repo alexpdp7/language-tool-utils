@@ -66,8 +66,17 @@ class AdocHtml5TextSelector:
             return True
         if path[-1].name == "p":
             return True
+        if path[-1].name == "a":
+            return True
         if path[-1].name == "div" and path[-1].attrs.get("class") == "title":
             return True
-        if path[-1].name == "em":
+        if path[-1].name == "em" and not has_pre_ancestor(path):
             return True
         return False
+
+
+def has_pre_ancestor(path):
+    for element in path:
+        if element.name == "pre":
+            return True
+    return False
