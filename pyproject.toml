@@ -18,6 +18,7 @@ ipython = "*"
 ltu-run-server = 'ltu.server:run_container_server'
 ltu-build-server = 'ltu.server:build_server_main'
 ltu-check-asciidoctor = 'ltu.cli:check_asciidoctor_cli'
+ltu-install-server = 'ltu.server:install_server'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

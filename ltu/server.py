@@ -4,10 +4,12 @@ import pathlib
 import pkg_resources
 import shutil
 import subprocess
+import sys
 import urllib.request
 import zipfile
 
 import ltu
+from ltu.util import _
 
 
 logger = logging.getLogger(__name__)
@@ -81,3 +83,26 @@ def build_server_main():
     for ngram in args.ngrams or []:
         download_ngrams(ngram)
     build_container()
+
+
+def install_server():
+    systemd_path = pathlib.Path.home() / ".local" / "share" / "systemd" / "user"
+    systemd_path.mkdir(parents=True, exist_ok=True)
+    systemd_file = systemd_path / f"{ltu.APP_NAME}-server.service"
+    server_cmd = pathlib.Path(sys.argv[0]).parent / "ltu-run-server"
+    with open(systemd_file, "w", encoding="utf8") as f:
+        f.write(_(f"""
+            [Service]
+            ExecStart={server_cmd}
+            TimeoutStopSec=5
+
+            [Install]
+            WantedBy=default.target
+        """))
+    print(_(f"""
+        Created {systemd_file}.
+
+        $ systemctl --user [start|stop] language-tool-utils-server.service
+        $ journalctl --user-unit language-tool-utils-server.service
+        $ systemctl --user enable [--now] language-tool-utils-server.service
+    """))

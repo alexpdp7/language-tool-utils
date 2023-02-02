@@ -24,4 +24,10 @@ $ ltu-run-server
 $ ltu-check-asciidoctor --language en path-to-asciidoc.adoc
 ```
 
+Or, after building a server, run the `ltu-install-server` command to install a systemd user unit.
+
+```
+$ ltu-install-server
+```
+
 Review the `--help` option in some commands for details.

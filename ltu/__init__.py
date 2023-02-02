@@ -1,4 +1,4 @@
 import appdirs
 
-
-dirs = appdirs.AppDirs("language-tool-utils", "alex@pdp7.net")
+APP_NAME = "language-tool-utils"
+dirs = appdirs.AppDirs(APP_NAME, "alex@pdp7.net")
