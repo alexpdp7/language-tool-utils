@@ -18,9 +18,10 @@ $ pipx install git+https://github.com/alexpdp7/language-tool-utils.git
 ## Usage
 
 ```
-$ ltu-run-server --ngrams en
+$ ltu-build-server --ngrams en
+$ ltu-run-server
 # switch to a different tab
 $ ltu-check-asciidoctor --language en path-to-asciidoc.adoc
 ```
 
-Review the `--help` option for each command for details.
+Review the `--help` option in some commands for details.

@@ -46,11 +46,19 @@ def download_ngrams(language):
 
     ngrams_path = cache_path / language
     if ngrams_path.exists():
+        logger.info("%s exists, done", ngrams_path)
         return
 
     logging.info("Unzipping %s", zip_path)
     with zipfile.ZipFile(zip_path, "r") as zip:
         zip.extractall(cache_path)
+
+    logging.info("Extracted zip, truncating")
+    with open(zip_path, "w"):
+        # truncate the zip; keep it there to "mark" it has been downloaded and extracted
+        pass
+
+    logging.info("Done")
 
 
 def build_container():
@@ -65,11 +73,11 @@ def run_container_server():
     subprocess.run(["podman", "run", "--rm", "-it", "-p", "8010:8010", "-v", f"{ngrams_path}:/ngrams", "--security-opt", "label=disable", _CONTAINER_IMAGE], check=True)
 
 
-def run_server_main():
+def build_server_main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--ngrams", action="append")
     args = parser.parse_args()
+    logging.basicConfig(level=logging.INFO)
     for ngram in args.ngrams or []:
         download_ngrams(ngram)
     build_container()
-    run_container_server()

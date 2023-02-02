@@ -15,7 +15,8 @@ appdirs = "^1.4.4"
 ipython = "*"
 
 [tool.poetry.scripts]
-ltu-run-server = 'ltu.server:run_server_main'
+ltu-run-server = 'ltu.server:run_container_server'
+ltu-build-server = 'ltu.server:build_server_main'
 ltu-check-asciidoctor = 'ltu.cli:check_asciidoctor_cli'
 
 [build-system]
